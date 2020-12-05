@@ -139,6 +139,7 @@ function calculateScore(playerCards) {
 function determinePlayerOptions(playerScore) {
   if (playerScore == 21) {
     gameText.innerHTML += " > Player 1 has Blackjack";
+    disablePlayerActions();
     dealerTurn();
     return false;
   } else if (playerScore < 21) {
@@ -147,6 +148,7 @@ function determinePlayerOptions(playerScore) {
     return true;
   } else {
     gameText.innerHTML += " > Player 1 is Bust > Dealer WINS";
+    disablePlayerActions();
     return false;
   }
 }
@@ -231,3 +233,8 @@ hitMeButton.addEventListener("click", function () {
 stickButton.addEventListener("click", function () {
   dealerTurn();
 });
+
+function disablePlayerActions() {
+  hitMeButton.disabled = true;
+  stickButton.disabled = true;
+}
