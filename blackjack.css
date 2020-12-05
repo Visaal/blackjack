@@ -1,0 +1,54 @@
+:root {
+  --canvas: #2ecc71;
+  --card-white: #fdfefe;
+  --card-red: #e74c3c;
+  --card-black: #1c2833;
+  --suit-size: 5rem;
+}
+
+body {
+  font-family: "Heebo", sans-serif;
+  color: #2c3e50;
+  background: var(--canvas);
+}
+
+.playing-card {
+  color: var(--card-black);
+  display: inline-block;
+  height: 9rem;
+  width: 5.5rem;
+  background-color: var(--card-white);
+  border-radius: 0.5rem;
+  margin: 0.6rem;
+  font-size: 1rem;
+  text-align: center;
+  border: 10px solid var(--card-white);
+}
+
+.hearts:after {
+  display: block;
+  content: " \2665";
+  color: var(--card-red);
+  font-size: var(--suit-size);
+}
+
+.diamonds:after {
+  display: block;
+  content: " \2666";
+  color: var(--card-red);
+  font-size: var(--suit-size);
+}
+
+.clubs:after {
+  display: block;
+  content: " \2663";
+  color: var(--card-black);
+  font-size: var(--suit-size);
+}
+
+.spades:after {
+  display: block;
+  content: " \2660";
+  color: var(--card-black);
+  font-size: var(--suit-size);
+}

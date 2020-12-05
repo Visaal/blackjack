@@ -92,6 +92,15 @@ function dealCard(cardDeck) {
   return cardDeck.pop();
 }
 
+function renderCard(card, location) {
+  console.log(card);
+  let cardPicture = document.createElement("div");
+  cardPicture.setAttribute("class", `playing-card ${card.suit}`);
+  location.appendChild(cardPicture);
+  let cardValue = document.createTextNode(card.value);
+  cardPicture.appendChild(cardValue);
+}
+
 function setUpPlayers() {
   // structure: [["Player 1", [cards stored here]], ["Player 2", [cards stored here]]
   let players = [];
@@ -113,11 +122,14 @@ function displayDeal(players) {
   playerOneCards = players[0][1];
   playerText.innerHTML += "Player 1 has ";
   playerText.innerHTML += cardDetails(playerOneCards[0]);
+  renderCard(playerOneCards[0], playerArea);
   playerText.innerHTML += ", ";
   playerText.innerHTML += cardDetails(playerOneCards[1]);
+  renderCard(playerOneCards[1], playerArea);
   dealerCards = players[1][1];
   dealerText.innerHTML += "Dealer has ";
   dealerText.innerHTML += cardDetails(dealerCards[0]);
+  renderCard(dealerCards[0], dealerArea);
 }
 
 function calculateScore(playerCards) {
@@ -196,6 +208,8 @@ function clearGame() {
   stickButton.style.display = "none";
   hitMeButton.disabled = false;
   stickButton.disabled = false;
+  playerArea.innerHTML = "";
+  dealerArea.innerHTML = "";
 }
 
 // Show all the in game commentry
@@ -204,6 +218,8 @@ let playerText = document.getElementById("playerText");
 let playerScoreDisplay = document.getElementById("playerScore");
 let dealerText = document.getElementById("dealerText");
 let dealerScoreDisplay = document.getElementById("dealerScore");
+let playerArea = document.getElementById("playerCards");
+let dealerArea = document.getElementById("dealerCards");
 
 let newGameButton = document.getElementById("newGameButton");
 newGameButton.addEventListener("click", function () {
