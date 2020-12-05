@@ -158,11 +158,13 @@ function dealerTurn() {
   dealerText.innerHTML += ", ";
   dealerText.innerHTML += cardDetails(dealerCards[1]);
   dealerScore = calculateScore(dealerCards);
+  dealerScoreDisplay.innerHTML = dealerScore;
   gameText.innerHTML += " > Dealer has " + dealerScore;
   while (dealerScore < 17) {
     newCard = dealCard(cards);
     dealerCards.push(newCard);
     dealerScore = calculateScore(dealerCards);
+    dealerScoreDisplay.innerHTML = dealerScore;
     dealerText.innerHTML += ", ";
     dealerText.innerHTML += cardDetails(newCard);
     gameText.innerHTML += " > Dealer now has " + dealerScore;
@@ -199,7 +201,9 @@ function clearGame() {
 // Show all the in game commentry
 let gameText = document.getElementById("gameText");
 let playerText = document.getElementById("playerText");
+let playerScoreDisplay = document.getElementById("playerScore");
 let dealerText = document.getElementById("dealerText");
+let dealerScoreDisplay = document.getElementById("dealerScore");
 
 let newGameButton = document.getElementById("newGameButton");
 newGameButton.addEventListener("click", function () {
@@ -213,6 +217,7 @@ newGameButton.addEventListener("click", function () {
   displayDeal(playersCards);
   player1Cards = playersCards[0][1];
   playerScore = calculateScore(player1Cards);
+  playerScoreDisplay.innerHTML = playerScore;
   gameText.innerHTML += " > Player has " + playerScore;
   determinePlayerOptions(playerScore);
 });
@@ -226,6 +231,7 @@ hitMeButton.addEventListener("click", function () {
   newCard = dealCard(cards);
   player1Cards.push(newCard);
   playerScore = calculateScore(player1Cards);
+  playerScoreDisplay.innerHTML = playerScore;
   playerText.innerHTML += ", ";
   playerText.innerHTML += cardDetails(newCard);
   gameText.innerHTML += " > Player now has " + playerScore;
