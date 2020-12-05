@@ -186,12 +186,14 @@ function determineWinner() {
   }
 }
 
-function clearText() {
+function clearGame() {
   gameText.innerHTML = "";
   playerText.innerHTML = "";
   dealerText.innerHTML = "";
   hitMeButton.style.display = "none";
   stickButton.style.display = "none";
+  hitMeButton.disabled = false;
+  stickButton.disabled = false;
 }
 
 // Show all the in game commentry
@@ -201,7 +203,7 @@ let dealerText = document.getElementById("dealerText");
 
 let newGameButton = document.getElementById("newGameButton");
 newGameButton.addEventListener("click", function () {
-  clearText();
+  clearGame();
   gameText.innerHTML = "New game has now started.";
   cards = createDeck();
   cards = shuffleDeck(cards);
