@@ -168,6 +168,7 @@ function determinePlayerOptions(playerScore) {
 
 function dealerTurn() {
   disablePlayerActions();
+  renderCard(dealerCards[1], dealerArea);
   dealerCards = playersCards[1][1];
   dealerText.innerHTML += ", ";
   dealerText.innerHTML += cardDetails(dealerCards[1]);
@@ -177,6 +178,7 @@ function dealerTurn() {
   while (dealerScore < 17) {
     newCard = dealCard(cards);
     dealerCards.push(newCard);
+    renderCard(newCard, dealerArea);
     dealerScore = calculateScore(dealerCards);
     dealerScoreDisplay.innerHTML = dealerScore;
     dealerText.innerHTML += ", ";
@@ -248,6 +250,7 @@ stickButton.style.display = "none";
 hitMeButton.addEventListener("click", function () {
   newCard = dealCard(cards);
   player1Cards.push(newCard);
+  renderCard(newCard, playerArea);
   playerScore = calculateScore(player1Cards);
   playerScoreDisplay.innerHTML = playerScore;
   playerText.innerHTML += ", ";
