@@ -12,24 +12,31 @@ let stickButton = document.getElementById("stickButton");
 hitMeButton.style.display = "none";
 stickButton.style.display = "none";
 
-newGameButton.addEventListener("click", function () {
+newGameButton.addEventListener("click", startGame);
+
+function startGame() {
   clearGame();
-  gameText.innerHTML = "New game has now started.";
+  displayGameText("New game has now started");
   cards = createDeck();
   cards = shuffleDeck(cards);
   players = setUpPlayers();
-  gameText.innerHTML += " > Dealing cards";
+  displayGameText(" > Dealing cards");
   initialDeal(players, cards);
   displayDeal(players);
   player1Cards = players.Player1;
   playerScore = calculateScore(player1Cards);
   playerScoreDisplay.innerHTML = playerScore;
-  gameText.innerHTML += " > Player has " + playerScore;
+  displayGameText(" > Player has " + playerScore);
   dealerCards = players.Dealer;
   dealerScore = calculateScore([dealerCards[0]]);
   dealerScoreDisplay.innerHTML = dealerScore;
   determinePlayerOptions(playerScore);
-});
+}
+
+function displayGameText(message) {
+  let gameText = document.getElementById("gameText");
+  gameText.innerHTML += message;
+}
 
 // Supporting functions
 function getCardScore(cardValue) {
@@ -180,7 +187,7 @@ function calculateScore(playerCards) {
 
 function determinePlayerOptions(playerScore) {
   if (playerScore == 21) {
-    gameText.innerHTML += " > Player 1 has Blackjack";
+    displayGameText(" > Player 1 has Blackjack");
     dealerTurn();
     return false;
   } else if (playerScore < 21) {
@@ -188,7 +195,7 @@ function determinePlayerOptions(playerScore) {
     stickButton.style.display = "inline";
     return true;
   } else {
-    gameText.innerHTML += " > Player 1 is Bust > Dealer WINS";
+    displayGameText(" > Player 1 is Bust > Dealer WINS");
     disablePlayerActions();
     return false;
   }
@@ -200,31 +207,31 @@ function dealerTurn() {
   dealerCards = players.Dealer;
   dealerScore = calculateScore(dealerCards);
   dealerScoreDisplay.innerHTML = dealerScore;
-  gameText.innerHTML += " > Dealer has " + dealerScore;
+  displayGameText(" > Dealer has " + dealerScore);
   while (dealerScore < 17) {
     newCard = dealCard(cards);
     dealerCards.push(newCard);
     renderCard(newCard, dealerArea);
     dealerScore = calculateScore(dealerCards);
     dealerScoreDisplay.innerHTML = dealerScore;
-    gameText.innerHTML += " > Dealer now has " + dealerScore;
+    displayGameText(" > Dealer now has " + dealerScore);
   }
   if (dealerScore > 17 && dealerScore < 22) {
     determineWinner();
     return;
   } else {
-    gameText.innerHTML += " > Dealer is Bust > Player 1 WINS";
+    displayGameText(" > Dealer is Bust > Player 1 WINS");
     return;
   }
 }
 
 function determineWinner() {
   if (playerScore > dealerScore) {
-    gameText.innerHTML += " > Player 1 WINS";
+    displayGameText(" > Player 1 WINS");
   } else if (playerScore === dealerScore) {
-    gameText.innerHTML += " > Game is a draw";
+    displayGameText(" > Game is a draw");
   } else {
-    gameText.innerHTML += " > Dealer WINS";
+    displayGameText(" > Dealer WINS");
   }
 }
 
@@ -244,7 +251,7 @@ hitMeButton.addEventListener("click", function () {
   renderCard(newCard, playerArea);
   playerScore = calculateScore(player1Cards);
   playerScoreDisplay.innerHTML = playerScore;
-  gameText.innerHTML += " > Player now has " + playerScore;
+  displayGameText(" > Player now has " + playerScore);
   determinePlayerOptions(playerScore);
 });
 
