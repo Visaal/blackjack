@@ -75,3 +75,26 @@ h1 {
   color: var(--card-black);
   font-size: var(--suit-size);
 }
+
+.player-container {
+  /* display: inline-block; */
+}
+
+.score {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 5.5rem;
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+  color: var(--card-white);
+  background-color: var(--card-black);
+  border-radius: 0.5rem;
+  font-size: 3rem;
+  border: 0.15rem solid var(--card-white);
+  margin: 0.6rem;
+}
+
+.cards {
+  display: inline-block;
+}

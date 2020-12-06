@@ -11,7 +11,7 @@ let stickButton = document.getElementById("stickButton");
 hitMeButton.style.display = "none";
 stickButton.style.display = "none";
 
-newGameButton.addEventListener("click", startGame);
+newGameButton.addEventListener("click", startGame());
 
 function startGame() {
   clearGame();
