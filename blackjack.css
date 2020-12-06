@@ -1,5 +1,6 @@
 :root {
   --canvas: #2ecc71;
+  --table-yellow: #f4d03f;
   --card-white: #fdfefe;
   --card-red: #e74c3c;
   --card-black: #1c2833;
@@ -11,6 +12,7 @@ body {
   font-family: "Heebo", sans-serif;
   color: #2c3e50;
   background: var(--canvas);
+  text-align: center;
 }
 
 h1 {
@@ -77,7 +79,7 @@ h1 {
 }
 
 .player-container {
-  /* display: inline-block; */
+  margin-bottom: 3rem;
 }
 
 .score {
@@ -97,4 +99,6 @@ h1 {
 
 .cards {
   display: inline-block;
+  border: 0.2rem solid var(--table-yellow);
+  border-radius: 0.3rem;
 }
