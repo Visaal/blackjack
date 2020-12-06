@@ -1,3 +1,38 @@
+// GAME DISPLAY ENTITIES
+let gameText = document.getElementById("gameText");
+let playerText = document.getElementById("playerText");
+let playerScoreDisplay = document.getElementById("playerScore");
+let dealerText = document.getElementById("dealerText");
+let dealerScoreDisplay = document.getElementById("dealerScore");
+let playerArea = document.getElementById("playerCards");
+let dealerArea = document.getElementById("dealerCards");
+
+// GAME ACTION BUTTONS
+let newGameButton = document.getElementById("newGameButton");
+let hitMeButton = document.getElementById("hitMeButton");
+let stickButton = document.getElementById("stickButton");
+hitMeButton.style.display = "none";
+stickButton.style.display = "none";
+
+newGameButton.addEventListener("click", function () {
+  clearGame();
+  gameText.innerHTML = "New game has now started.";
+  cards = createDeck();
+  cards = shuffleDeck(cards);
+  players = setUpPlayers();
+  gameText.innerHTML += " > Dealing cards";
+  playersCards = initialDeal(players, cards);
+  displayDeal(playersCards);
+  player1Cards = players.Player1;
+  playerScore = calculateScore(player1Cards);
+  playerScoreDisplay.innerHTML = playerScore;
+  gameText.innerHTML += " > Player has " + playerScore;
+  dealerCards = players.Dealer;
+  dealerScore = calculateScore([dealerCards[0]]);
+  dealerScoreDisplay.innerHTML = dealerScore;
+  determinePlayerOptions(playerScore);
+});
+
 // Supporting functions
 function getCardScore(cardValue) {
   switch (cardValue) {
@@ -104,31 +139,28 @@ function renderCard(card, location) {
 }
 
 function setUpPlayers() {
-  // structure: [["Player 1", [cards stored here]], ["Player 2", [cards stored here]]
-  let players = [];
-  players.push(["Player 1", []]);
-  players.push(["Dealer", []]);
+  // structure { Player1: [cards stored here], Dealer: [cards stored here] }
+  const players = { Player1: [], Dealer: [] };
   return players;
 }
 
 function initialDeal(players, cardDeck) {
   for (i = 0; i < 2; i++) {
-    players[0][1].push(dealCard(cardDeck));
-    players[1][1].push(dealCard(cardDeck));
+    players.Player1.push(dealCard(cardDeck));
+    players.Dealer.push(dealCard(cardDeck));
   }
   return players;
 }
 
 function displayDeal(players) {
-  dealInfo = "";
-  playerOneCards = players[0][1];
+  let playerOneCards = players.Player1;
+  let dealerCards = players.Dealer;
   playerText.innerHTML += "Player 1 has ";
   playerText.innerHTML += cardDetails(playerOneCards[0]);
   renderCard(playerOneCards[0], playerArea);
   playerText.innerHTML += ", ";
   playerText.innerHTML += cardDetails(playerOneCards[1]);
   renderCard(playerOneCards[1], playerArea);
-  dealerCards = players[1][1];
   dealerText.innerHTML += "Dealer has ";
   dealerText.innerHTML += cardDetails(dealerCards[0]);
   renderCard(dealerCards[0], dealerArea);
@@ -169,7 +201,7 @@ function determinePlayerOptions(playerScore) {
 function dealerTurn() {
   disablePlayerActions();
   renderCard(dealerCards[1], dealerArea);
-  dealerCards = playersCards[1][1];
+  dealerCards = players.Dealer;
   dealerText.innerHTML += ", ";
   dealerText.innerHTML += cardDetails(dealerCards[1]);
   dealerScore = calculateScore(dealerCards);
@@ -215,37 +247,6 @@ function clearGame() {
   playerArea.innerHTML = "";
   dealerArea.innerHTML = "";
 }
-
-// Show all the in game commentry
-let gameText = document.getElementById("gameText");
-let playerText = document.getElementById("playerText");
-let playerScoreDisplay = document.getElementById("playerScore");
-let dealerText = document.getElementById("dealerText");
-let dealerScoreDisplay = document.getElementById("dealerScore");
-let playerArea = document.getElementById("playerCards");
-let dealerArea = document.getElementById("dealerCards");
-
-let newGameButton = document.getElementById("newGameButton");
-newGameButton.addEventListener("click", function () {
-  clearGame();
-  gameText.innerHTML = "New game has now started.";
-  cards = createDeck();
-  cards = shuffleDeck(cards);
-  players = setUpPlayers();
-  gameText.innerHTML += " > Dealing cards";
-  playersCards = initialDeal(players, cards);
-  displayDeal(playersCards);
-  player1Cards = playersCards[0][1];
-  playerScore = calculateScore(player1Cards);
-  playerScoreDisplay.innerHTML = playerScore;
-  gameText.innerHTML += " > Player has " + playerScore;
-  determinePlayerOptions(playerScore);
-});
-
-let hitMeButton = document.getElementById("hitMeButton");
-let stickButton = document.getElementById("stickButton");
-hitMeButton.style.display = "none";
-stickButton.style.display = "none";
 
 hitMeButton.addEventListener("click", function () {
   newCard = dealCard(cards);
