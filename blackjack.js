@@ -152,6 +152,9 @@ function initialDeal(players, cardDeck) {
 }
 
 function displayDeal(players) {
+  // Show both cards for player 1
+  // Only show the first card for the dealer
+  // TODO: show second card face down for dealer
   let playerOneCards = players.Player1;
   let dealerCards = players.Dealer;
   renderCard(playerOneCards[0], playerArea);
