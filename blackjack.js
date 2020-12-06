@@ -1,8 +1,6 @@
 // GAME DISPLAY ENTITIES
 let gameText = document.getElementById("gameText");
-let playerText = document.getElementById("playerText");
 let playerScoreDisplay = document.getElementById("playerScore");
-let dealerText = document.getElementById("dealerText");
 let dealerScoreDisplay = document.getElementById("dealerScore");
 let playerArea = document.getElementById("playerCards");
 let dealerArea = document.getElementById("dealerCards");
@@ -156,14 +154,8 @@ function initialDeal(players, cardDeck) {
 function displayDeal(players) {
   let playerOneCards = players.Player1;
   let dealerCards = players.Dealer;
-  playerText.innerHTML += "Player 1 has ";
-  playerText.innerHTML += cardDetails(playerOneCards[0]);
   renderCard(playerOneCards[0], playerArea);
-  playerText.innerHTML += ", ";
-  playerText.innerHTML += cardDetails(playerOneCards[1]);
   renderCard(playerOneCards[1], playerArea);
-  dealerText.innerHTML += "Dealer has ";
-  dealerText.innerHTML += cardDetails(dealerCards[0]);
   renderCard(dealerCards[0], dealerArea);
 }
 
@@ -203,8 +195,6 @@ function dealerTurn() {
   disablePlayerActions();
   renderCard(dealerCards[1], dealerArea);
   dealerCards = players.Dealer;
-  dealerText.innerHTML += ", ";
-  dealerText.innerHTML += cardDetails(dealerCards[1]);
   dealerScore = calculateScore(dealerCards);
   dealerScoreDisplay.innerHTML = dealerScore;
   gameText.innerHTML += " > Dealer has " + dealerScore;
@@ -214,8 +204,6 @@ function dealerTurn() {
     renderCard(newCard, dealerArea);
     dealerScore = calculateScore(dealerCards);
     dealerScoreDisplay.innerHTML = dealerScore;
-    dealerText.innerHTML += ", ";
-    dealerText.innerHTML += cardDetails(newCard);
     gameText.innerHTML += " > Dealer now has " + dealerScore;
   }
   if (dealerScore > 17 && dealerScore < 22) {
@@ -239,8 +227,6 @@ function determineWinner() {
 
 function clearGame() {
   gameText.innerHTML = "";
-  playerText.innerHTML = "";
-  dealerText.innerHTML = "";
   hitMeButton.style.display = "none";
   stickButton.style.display = "none";
   hitMeButton.disabled = false;
@@ -255,8 +241,6 @@ hitMeButton.addEventListener("click", function () {
   renderCard(newCard, playerArea);
   playerScore = calculateScore(player1Cards);
   playerScoreDisplay.innerHTML = playerScore;
-  playerText.innerHTML += ", ";
-  playerText.innerHTML += cardDetails(newCard);
   gameText.innerHTML += " > Player now has " + playerScore;
   determinePlayerOptions(playerScore);
 });
