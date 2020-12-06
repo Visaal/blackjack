@@ -21,8 +21,8 @@ newGameButton.addEventListener("click", function () {
   cards = shuffleDeck(cards);
   players = setUpPlayers();
   gameText.innerHTML += " > Dealing cards";
-  playersCards = initialDeal(players, cards);
-  displayDeal(playersCards);
+  initialDeal(players, cards);
+  displayDeal(players);
   player1Cards = players.Player1;
   playerScore = calculateScore(player1Cards);
   playerScoreDisplay.innerHTML = playerScore;
@@ -73,6 +73,7 @@ function getCardScore(cardValue) {
 }
 
 function createDeck() {
+  // deck = [{suit: "clubs", value: "Ace"}, {suit: "clubs", value: 10}...]
   let deck = [];
   suits = ["clubs", "diamonds", "hearts", "spades"];
   cardValues = [
