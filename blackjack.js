@@ -93,12 +93,14 @@ function dealCard(cardDeck) {
 }
 
 function renderCard(card, location) {
-  console.log(card);
   let cardPicture = document.createElement("div");
   cardPicture.setAttribute("class", `playing-card ${card.suit}`);
   location.appendChild(cardPicture);
+  let cardValueSpan = document.createElement("span");
+  cardValueSpan.setAttribute("class", "card-text");
   let cardValue = document.createTextNode(card.value);
-  cardPicture.appendChild(cardValue);
+  cardValueSpan.appendChild(cardValue);
+  cardPicture.appendChild(cardValueSpan);
 }
 
 function setUpPlayers() {
