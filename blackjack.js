@@ -1,5 +1,4 @@
 // GAME DISPLAY ENTITIES
-let gameText = document.getElementById("gameText");
 let playerScoreDisplay = document.getElementById("playerScore");
 let dealerScoreDisplay = document.getElementById("dealerScore");
 let playerArea = document.getElementById("playerCards");
