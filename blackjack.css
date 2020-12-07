@@ -27,12 +27,12 @@ h1 {
 
 .divider {
   position: absolute;
-  top: -65vw;
-  margin-left: 5vw;
-  width: 90vw;
-  height: 90vw;
+  top: -45rem;
+  left: 50%;
+  margin-left: -35rem;
+  width: 70rem;
+  height: 70rem;
   border-radius: 50%;
-  text-align: center;
   border-style: solid;
   border: 0.7rem solid var(--card-white);
   z-index: -1;
