@@ -99,23 +99,34 @@ h1 {
   margin-bottom: 3rem;
 }
 
-.score {
+.player-score {
   display: inline-block;
   vertical-align: bottom;
   width: 5.5rem;
-  height: 5rem;
-  line-height: 5rem;
   text-align: center;
   color: var(--card-white);
   background-color: var(--card-black);
   border-radius: 0.5rem;
-  font-size: 3rem;
   border: 0.15rem solid var(--card-white);
   margin: 0.6rem;
+}
+
+.name {
+  padding-top: 0.5rem;
+  color: var(--card-white);
+  text-transform: uppercase;
+}
+
+.score {
+  font-size: 3rem;
 }
 
 .cards {
   display: inline-block;
   border: 0.2rem solid var(--table-yellow);
   border-radius: 0.3rem;
+}
+
+.player-score.bust {
+  border: 0.35rem solid var(--card-red);
 }
