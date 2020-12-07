@@ -25,6 +25,19 @@ h1 {
   padding-bottom: 0.5rem;
 }
 
+.divider {
+  position: absolute;
+  top: -65vw;
+  margin-left: 5vw;
+  width: 90vw;
+  height: 90vw;
+  border-radius: 50%;
+  text-align: center;
+  border-style: solid;
+  border: 0.7rem solid var(--card-white);
+  z-index: -1;
+}
+
 .playing-card {
   color: var(--card-black);
   display: inline-block;
