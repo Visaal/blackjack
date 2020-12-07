@@ -261,4 +261,6 @@ stickButton.addEventListener("click", function () {
 function disablePlayerActions() {
   hitMeButton.disabled = true;
   stickButton.disabled = true;
+  hitMeButton.style.display = "none";
+  stickButton.style.display = "none";
 }
