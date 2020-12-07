@@ -1,8 +1,10 @@
 // GAME DISPLAY ENTITIES
+let gameItems = document.getElementById("game");
 let playerScoreDisplay = document.getElementById("playerScore");
 let dealerScoreDisplay = document.getElementById("dealerScore");
 let playerArea = document.getElementById("playerCards");
 let dealerArea = document.getElementById("dealerCards");
+gameItems.style.display = "none";
 
 // GAME ACTION BUTTONS
 let newGameButton = document.getElementById("newGameButton");
@@ -15,6 +17,7 @@ newGameButton.addEventListener("click", startGame);
 
 function startGame() {
   clearGame();
+  gameItems.style.display = "";
   cards = createDeck();
   cards = shuffleDeck(cards);
   players = setUpPlayers();

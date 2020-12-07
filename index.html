@@ -24,30 +24,32 @@
       <button id="newGameButton" class="button">NEW GAME</button>
     </div>
 
-    <div class="dealer-area">
-      <div class="player-container">
-        <div class="player-score">
-          <div class="name">Dealer</div>
-          <div id="dealerScore" class="score"></div>
+    <div id="game">
+      <div class="dealer-area">
+        <div class="player-container">
+          <div class="player-score">
+            <div class="name">Dealer</div>
+            <div id="dealerScore" class="score"></div>
+          </div>
+          <div id="dealerCards" class="cards"></div>
         </div>
-        <div id="dealerCards" class="cards"></div>
       </div>
-    </div>
 
-    <div id="gameText" class="game-text"></div>
+      <div id="gameText" class="game-text"></div>
 
-    <div class="player-area">
-      <div class="player-container">
-        <div class="player-score">
-          <div class="name">Player 1</div>
-          <div id="playerScore" class="score"></div>
+      <div class="player-area">
+        <div class="player-container">
+          <div class="player-score">
+            <div class="name">Player 1</div>
+            <div id="playerScore" class="score"></div>
+          </div>
+          <div id="playerCards" class="cards"></div>
         </div>
-        <div id="playerCards" class="cards"></div>
       </div>
-    </div>
 
-    <button id="hitMeButton" class="button">HIT ME</button>
-    <button id="stickButton" class="button">STICK</button>
+      <button id="hitMeButton" class="button">HIT ME</button>
+      <button id="stickButton" class="button">STICK</button>
+    </div>
 
     <script src="blackjack.js"></script>
   </body>
