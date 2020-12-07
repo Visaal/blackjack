@@ -146,3 +146,66 @@ h1 {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+
+.poker-chip {
+  top: -10px;
+  margin: 0 auto;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  border: 0.3rem solid var(--card-white);
+  border-radius: 50%;
+  line-height: 5rem;
+  text-align: center;
+  color: var(--card-white);
+}
+.poker-chip:before {
+  position: absolute;
+  z-index: -3;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: -1rem;
+  border-radius: 50%;
+  background: var(--card-red);
+  content: "";
+}
+
+.button {
+  font-family: "Heebo", sans-serif;
+  color: var(--card-black);
+  background: var(--card-white);
+  border: 0.15rem solid var(--strong-text);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(253, 254, 254, 1);
+  font-size: 1rem;
+  border-radius: 0.2rem;
+  transform: scale(1);
+  animation: pulse-black 2s infinite;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button:active {
+  animation: pulse-white 0.3s;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    /* box-shadow: 0 0 0 0 rgba(253, 254, 254, 0.7); */
+  }
+
+  70% {
+    transform: scale(1);
+    /* box-shadow: 0 0 0 10vh rgba(253, 254, 254, 0); */
+  }
+
+  100% {
+    transform: scale(0.95);
+    /* box-shadow: 0 0 0 0 rgba(253, 254, 254, 0); */
+  }
+}
