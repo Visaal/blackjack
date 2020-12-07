@@ -1,4 +1,5 @@
 :root {
+  --strong-text: #2c3e50;
   --canvas: #2ecc71;
   --table-yellow: #f4d03f;
   --card-white: #fdfefe;
@@ -10,14 +11,14 @@
 
 body {
   font-family: "Heebo", sans-serif;
-  color: #2c3e50;
+  color: var(--strong-text);
   background: var(--canvas);
   text-align: center;
   margin: 0;
 }
 
 h1 {
-  font-family: "Bungee Shade", cursive;
+  font-family: "Bungee Shade", sans-serif;
   font-size: 5rem;
   width: 100%;
   background-color: var(--card-white);
@@ -129,4 +130,19 @@ h1 {
 
 .player-score.bust {
   border: 0.35rem solid var(--card-red);
+}
+
+.game-text {
+  display: none;
+  z-index: 1;
+  background-color: var(--card-white);
+  width: 100%;
+  text-align: center;
+  border: 0.15rem solid var(--strong-text);
+  font-family: "Bungee Shade", sans-serif;
+  font-size: 5rem;
+  color: var(--strong-text);
+  font-weight: bolder;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
