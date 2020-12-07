@@ -6,7 +6,11 @@
   --card-red: #e74c3c;
   --card-black: #1c2833;
   --card-grey: #566573;
-  --suit-size: 5rem;
+  --suit-size: 13vh;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -15,39 +19,58 @@ body {
   background: var(--canvas);
   text-align: center;
   margin: 0;
+  height: 100%;
+}
+
+.title {
+  min-height: 10vh;
+  background-color: var(--card-white);
+}
+
+.new-game {
+  min-height: 10vh;
+}
+
+.divider-container {
+}
+
+.divider {
+  position: absolute;
+  top: -60vh;
+  left: 50%;
+  margin-left: -55vh;
+  height: 110vh;
+  width: 110vh;
+  border-radius: 50%;
+  border-style: solid;
+  border: 0.7rem solid var(--card-white);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.dealer-area {
+  min-height: 35vh;
+}
+
+.player-area {
+  min-height: 30vh;
 }
 
 h1 {
   font-family: "Bungee Shade", sans-serif;
   font-size: 5rem;
-  width: 100%;
-  background-color: var(--card-white);
   margin: 0;
-  padding-bottom: 0.5rem;
-}
-
-.divider {
-  position: absolute;
-  top: -45rem;
-  left: 50%;
-  margin-left: -35rem;
-  width: 70rem;
-  height: 70rem;
-  border-radius: 50%;
-  border-style: solid;
-  border: 0.7rem solid var(--card-white);
-  z-index: -1;
 }
 
 .playing-card {
   color: var(--card-black);
   display: inline-block;
-  height: 9rem;
-  width: 5.5rem;
+  height: 25vh;
+  width: 15vh;
   background-color: var(--card-white);
   border-radius: 0.5rem;
   margin: 0.6rem;
-  font-size: 1rem;
+  font-size: 3vh;
   text-align: center;
   border: 0.15rem solid var(--card-black);
   outline: 0.1rem solid var(--card-grey);
@@ -97,13 +120,12 @@ h1 {
 }
 
 .player-container {
-  margin-bottom: 3rem;
 }
 
 .player-score {
   display: inline-block;
   vertical-align: bottom;
-  width: 5.5rem;
+  width: 15vh;
   text-align: center;
   color: var(--card-white);
   background-color: var(--card-black);
@@ -119,7 +141,7 @@ h1 {
 }
 
 .score {
-  font-size: 3rem;
+  font-size: 5vh;
 }
 
 .cards {
@@ -145,6 +167,9 @@ h1 {
   font-weight: bolder;
   padding-top: 3rem;
   padding-bottom: 3rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .poker-chip {

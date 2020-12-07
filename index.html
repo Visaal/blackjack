@@ -14,28 +14,36 @@
     />
   </head>
   <body>
-    <h1>Welcome to Blackjack</h1>
+    <div class="title">
+      <h1>Welcome to Blackjack</h1>
+    </div>
 
     <div class="divider"></div>
 
-    <button id="newGameButton" class="button">NEW GAME</button>
+    <div class="new-game">
+      <button id="newGameButton" class="button">NEW GAME</button>
+    </div>
 
-    <div class="player-container">
-      <div class="player-score">
-        <div class="name">Dealer</div>
-        <div id="dealerScore" class="score"></div>
+    <div class="dealer-area">
+      <div class="player-container">
+        <div class="player-score">
+          <div class="name">Dealer</div>
+          <div id="dealerScore" class="score"></div>
+        </div>
+        <div id="dealerCards" class="cards"></div>
       </div>
-      <div id="dealerCards" class="cards"></div>
     </div>
 
     <div id="gameText" class="game-text"></div>
 
-    <div class="player-container">
-      <div class="player-score">
-        <div class="name">Player 1</div>
-        <div id="playerScore" class="score"></div>
+    <div class="player-area">
+      <div class="player-container">
+        <div class="player-score">
+          <div class="name">Player 1</div>
+          <div id="playerScore" class="score"></div>
+        </div>
+        <div id="playerCards" class="cards"></div>
       </div>
-      <div id="playerCards" class="cards"></div>
     </div>
 
     <button id="hitMeButton" class="button">HIT ME</button>
