@@ -134,6 +134,10 @@ h1 {
   margin: 0.6rem;
 }
 
+.player-score.dealer {
+  vertical-align: top;
+}
+
 .name {
   padding-top: 0.5rem;
   color: var(--card-white);
