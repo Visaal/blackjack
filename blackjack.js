@@ -219,14 +219,13 @@ function getCardScore(cardValue) {
 function dealerTurn() {
   disablePlayerActions();
   renderCard(game.Dealer.cards[1], dealerArea);
-  dealerCards = game.Dealer.cards;
-  dealerScore = calculateScore(dealerCards);
+  let dealerScore = calculateScore(game.Dealer.cards);
   displayScore(dealerScore, "Dealer");
   while (dealerScore < 17) {
-    newCard = dealCard(game.cardDeck);
-    dealerCards.push(newCard);
+    let newCard = dealCard(game.cardDeck);
+    game.Dealer.cards.push(newCard);
     renderCard(newCard, dealerArea);
-    dealerScore = calculateScore(dealerCards);
+    dealerScore = calculateScore(game.Dealer.cards);
     displayScore(dealerScore, "Dealer");
   }
   if (dealerScore >= 17 && dealerScore < 22) {
