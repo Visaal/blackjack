@@ -22,11 +22,10 @@ function startGame() {
   setUpGame();
   initialDeal(game);
   displayDeal(game);
-  let playerScore = calculateScore(game.Player1.cards);
-  displayScore(playerScore, "Player1");
+  displayScore(game.Player1.score(), "Player1");
   let dealerScore = calculateScore([game.Dealer.cards[0]]);
   displayScore(dealerScore, "Dealer");
-  determinePlayerOptions(playerScore);
+  determinePlayerOptions(game.Player1.score());
 }
 
 function clearGame() {
@@ -44,8 +43,18 @@ function clearGame() {
 
 function setUpGame() {
   game = {
-    Player1: { cards: [], score: 0 },
-    Dealer: { cards: [], score: 0 },
+    Player1: {
+      cards: [],
+      score: function () {
+        return calculateScore(this.cards);
+      },
+    },
+    Dealer: {
+      cards: [],
+      score: function () {
+        return calculateScore(this.cards);
+      },
+    },
     cardDeck: shuffleDeck(createDeck()),
   };
   return game;
@@ -113,12 +122,11 @@ function determinePlayerOptions(playerScore) {
 
 // PLAYER ACTION FUNCTIONS
 function hitMe() {
-  newCard = dealCard(game.cardDeck);
+  let newCard = dealCard(game.cardDeck);
   game.Player1.cards.push(newCard);
   renderCard(newCard, playerArea);
-  playerScore = calculateScore(game.Player1.cards);
-  displayScore(playerScore, "Player1");
-  determinePlayerOptions(playerScore);
+  displayScore(game.Player1.score(), "Player1");
+  determinePlayerOptions(game.Player1.score());
 }
 
 function stick() {
@@ -219,17 +227,15 @@ function getCardScore(cardValue) {
 function dealerTurn() {
   disablePlayerActions();
   renderCard(game.Dealer.cards[1], dealerArea);
-  let dealerScore = calculateScore(game.Dealer.cards);
-  displayScore(dealerScore, "Dealer");
-  while (dealerScore < 17) {
+  displayScore(game.Dealer.score(), "Dealer");
+  while (game.Dealer.score() < 17) {
     let newCard = dealCard(game.cardDeck);
     game.Dealer.cards.push(newCard);
     renderCard(newCard, dealerArea);
-    dealerScore = calculateScore(game.Dealer.cards);
-    displayScore(dealerScore, "Dealer");
+    displayScore(game.Dealer.score(), "Dealer");
   }
-  if (dealerScore >= 17 && dealerScore < 22) {
-    determineWinner();
+  if (game.Dealer.score() >= 17 && game.Dealer.score() < 22) {
+    determineWinner(game.Player1.score(), game.Dealer.score());
     return;
   } else {
     displayGameText("DEALER BUST, YOU WIN!");
@@ -255,7 +261,8 @@ function displayGameText(message) {
   gameText.innerHTML = message;
 }
 
-function determineWinner() {
+function determineWinner(playerScore, dealerScore) {
+  console.log("calling");
   let message = "";
   if (playerScore > dealerScore) {
     message = "YOU WIN";
