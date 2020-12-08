@@ -68,12 +68,6 @@ function displayDeal() {
   renderCard(dealerCards[0], dealerArea);
 }
 
-function displayGameText(message) {
-  let gameText = document.getElementById("gameText");
-  gameText.style.display = "block";
-  gameText.innerHTML = message;
-}
-
 function calculateScore(playerCards) {
   total = 0;
   let aceCount = 0;
@@ -268,4 +262,10 @@ function disablePlayerActions() {
   stickButton.disabled = true;
   hitMeButton.style.display = "none";
   stickButton.style.display = "none";
+}
+
+function displayGameText(message) {
+  let gameText = document.getElementById("gameText");
+  gameText.style.display = "block";
+  gameText.innerHTML = message;
 }
