@@ -213,7 +213,7 @@ function dealerTurn() {
     dealerScore = calculateScore(dealerCards);
     dealerScoreDisplay.innerHTML = dealerScore;
   }
-  if (dealerScore > 17 && dealerScore < 22) {
+  if (dealerScore >= 17 && dealerScore < 22) {
     determineWinner();
     return;
   } else {
