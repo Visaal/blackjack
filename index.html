@@ -7,17 +7,50 @@
     <meta name="description" content="A basic blackjack game" />
     <meta name="author" content="VisaalPatel" />
     <link rel="stylesheet" href="blackjack.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Heebo:wght@900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Welcome to Blackjack</h1>
+    <div class="title">
+      <h1>Welcome to Blackjack</h1>
+    </div>
 
-    <p id="gameText"></p>
-    <p id="playerText"></p>
-    <p id="dealerText"></p>
+    <div class="divider"></div>
 
-    <button id="newGameButton">New Game</button>
-    <button id="hitMeButton">Hit Me</button>
-    <button id="stickButton">Stick</button>
+    <div class="new-game">
+      <button id="newGameButton" class="button">NEW GAME</button>
+    </div>
+
+    <div id="game">
+      <div class="dealer-area">
+        <div class="player-container">
+          <div class="player-score dealer">
+            <div class="name">Dealer</div>
+            <div id="dealerScore" class="score"></div>
+          </div>
+          <div id="dealerCards" class="cards"></div>
+        </div>
+      </div>
+
+      <div id="gameText" class="game-text"></div>
+
+      <div class="player-area">
+        <div class="player-container">
+          <div class="player-score">
+            <div class="name">Player 1</div>
+            <div id="playerScore" class="score"></div>
+          </div>
+          <div id="playerCards" class="cards"></div>
+        </div>
+      </div>
+
+      <button id="hitMeButton" class="button">HIT ME</button>
+      <button id="stickButton" class="button">STICK</button>
+    </div>
+
     <script src="blackjack.js"></script>
   </body>
 </html>

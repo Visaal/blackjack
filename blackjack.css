@@ -1,0 +1,243 @@
+:root {
+  --strong-text: #2c3e50;
+  --canvas: #2ecc71;
+  --table-yellow: #f4d03f;
+  --card-white: #fdfefe;
+  --card-red: #e74c3c;
+  --card-black: #1c2833;
+  --card-grey: #566573;
+  --suit-size: 13vh;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Heebo", sans-serif;
+  color: var(--strong-text);
+  background: var(--canvas);
+  text-align: center;
+  margin: 0;
+  height: 100%;
+}
+
+.title {
+  min-height: 10vh;
+  background-color: var(--card-white);
+}
+
+.new-game {
+  min-height: 8vh;
+}
+
+.divider-container {
+}
+
+.divider {
+  position: absolute;
+  top: -60vh;
+  left: 50%;
+  margin-left: -55vh;
+  height: 110vh;
+  width: 110vh;
+  border-radius: 50%;
+  border-style: solid;
+  border: 1vh solid var(--card-white);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.dealer-area {
+  min-height: 35vh;
+}
+
+.player-area {
+  min-height: 30vh;
+}
+
+h1 {
+  font-family: "Bungee Shade", sans-serif;
+  font-size: 8vh;
+  margin: 0;
+}
+
+.playing-card {
+  color: var(--card-black);
+  display: inline-block;
+  height: 25vh;
+  width: 15vh;
+  background-color: var(--card-white);
+  border-radius: 1vh;
+  margin: 1vh;
+  font-size: 3vh;
+  text-align: center;
+  border: 0.4vh solid var(--card-black);
+  outline: 0.1rem solid var(--card-grey);
+  outline-offset: -1.5vh;
+}
+
+.card-text {
+  top: 1.5vh;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.hearts .card-text {
+  color: var(--card-red);
+}
+
+.diamonds .card-text {
+  color: var(--card-red);
+}
+
+.hearts:after {
+  display: block;
+  content: " \2665";
+  color: var(--card-red);
+  font-size: var(--suit-size);
+}
+
+.diamonds:after {
+  display: block;
+  content: " \2666";
+  color: var(--card-red);
+  font-size: var(--suit-size);
+}
+
+.clubs:after {
+  display: block;
+  content: " \2663";
+  color: var(--card-black);
+  font-size: var(--suit-size);
+}
+
+.spades:after {
+  display: block;
+  content: " \2660";
+  color: var(--card-black);
+  font-size: var(--suit-size);
+}
+
+.player-container {
+}
+
+.player-score {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 15vh;
+  text-align: center;
+  color: var(--card-white);
+  background-color: var(--card-black);
+  border-radius: 1vh;
+  border: 0.4vh solid var(--card-white);
+  margin: 1vh;
+}
+
+.player-score.dealer {
+  vertical-align: top;
+}
+
+.name {
+  font-size: 3vh;
+  padding-top: 0.5rem;
+  color: var(--card-white);
+  text-transform: uppercase;
+}
+
+.score {
+  font-size: 5vh;
+}
+
+.cards {
+  display: inline-block;
+  border: 0.4vh solid var(--table-yellow);
+  border-radius: 1vh;
+}
+
+.player-score.bust {
+  border: 0.35rem solid var(--card-red);
+}
+
+.game-text {
+  display: none;
+  z-index: 1;
+  background-color: var(--card-white);
+  width: 100%;
+  text-align: center;
+  border-top: 0.5vh solid var(--strong-text);
+  border-bottom: 0.5vh solid var(--strong-text);
+  font-family: "Bungee Shade", sans-serif;
+  font-size: 8vh;
+  color: var(--strong-text);
+  font-weight: bolder;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.poker-chip {
+  top: -10px;
+  margin: 0 auto;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  border: 0.3rem solid var(--card-white);
+  border-radius: 50%;
+  line-height: 5rem;
+  text-align: center;
+  color: var(--card-white);
+}
+.poker-chip:before {
+  position: absolute;
+  z-index: -3;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: -1rem;
+  border-radius: 50%;
+  background: var(--card-red);
+  content: "";
+}
+
+.button {
+  font-family: "Heebo", sans-serif;
+  color: var(--strong-text);
+  background: var(--card-white);
+  border: 0.3vh solid var(--strong-text);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(253, 254, 254, 1);
+  font-size: 2vh;
+  border-radius: 0.3vh;
+  transform: scale(1);
+  animation: pulse-black 2s infinite;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 15vh;
+}
+
+.button:active {
+  animation: pulse-white 0.3s;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    /* box-shadow: 0 0 0 0 rgba(253, 254, 254, 0.7); */
+  }
+
+  70% {
+    transform: scale(1);
+    /* box-shadow: 0 0 0 10vh rgba(253, 254, 254, 0); */
+  }
+
+  100% {
+    transform: scale(0.95);
+    /* box-shadow: 0 0 0 0 rgba(253, 254, 254, 0); */
+  }
+}
