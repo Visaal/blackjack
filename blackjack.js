@@ -30,6 +30,7 @@ function startGame() {
   initialDeal(game);
   displayDeal(game);
   displayScore(game.Player1.score(), "Player1");
+  // Only show value of first card for dealer at start of game
   let dealerScore = calculateScore([game.Dealer.cards[0]]);
   displayScore(dealerScore, "Dealer");
   determinePlayerOptions(game.Player1.score());
