@@ -14,6 +14,8 @@ let hitMeButton = document.getElementById("hitMeButton");
 let stickButton = document.getElementById("stickButton");
 
 newGameButton.addEventListener("click", startGame);
+hitMeButton.addEventListener("click", hitMe);
+stickButton.addEventListener("click", stick);
 
 function startGame() {
   clearGame();
@@ -107,6 +109,20 @@ function determinePlayerOptions(playerScore) {
     disablePlayerActions();
     return false;
   }
+}
+
+// PLAYER ACTION FUNCTIONS
+function hitMe() {
+  newCard = dealCard(game.cardDeck);
+  game.Player1.cards.push(newCard);
+  renderCard(newCard, playerArea);
+  playerScore = calculateScore(game.Player1.cards);
+  displayScore(playerScore, "Player1");
+  determinePlayerOptions(playerScore);
+}
+
+function stick() {
+  dealerTurn();
 }
 
 // CARD DECK FUNCTIONS
@@ -238,19 +254,6 @@ function dealerTurn() {
     return;
   }
 }
-
-hitMeButton.addEventListener("click", function () {
-  newCard = dealCard(game.cardDeck);
-  game.Player1.cards.push(newCard);
-  renderCard(newCard, playerArea);
-  playerScore = calculateScore(game.Player1.cards);
-  displayScore(playerScore, "Player1");
-  determinePlayerOptions(playerScore);
-});
-
-stickButton.addEventListener("click", function () {
-  dealerTurn();
-});
 
 function disablePlayerActions() {
   hitMeButton.disabled = true;
