@@ -109,7 +109,58 @@ function determinePlayerOptions(playerScore) {
   }
 }
 
-// Supporting functions
+// CARD DECK FUNCTIONS
+function createDeck() {
+  // deck = [{suit: "clubs", value: "Ace"}, {suit: "clubs", value: 10}...]
+  let deck = [];
+  suits = ["clubs", "diamonds", "hearts", "spades"];
+  cardValues = [
+    "Ace",
+    "King",
+    "Queen",
+    "Jack",
+    "ten",
+    "nine",
+    "eight",
+    "seven",
+    "six",
+    "five",
+    "four",
+    "three",
+    "two",
+  ];
+
+  for (i = 0; i < suits.length; i++) {
+    for (n = 0; n < cardValues.length; n++) {
+      deck.push({
+        suit: suits[i],
+        value: cardValues[n],
+      });
+    }
+  }
+  return deck;
+}
+
+function shuffleDeck(cardDeck) {
+  let shuffledDeck = [];
+  while (cardDeck.length) {
+    randomCardIndex = getRandomCardIndex(cardDeck);
+    randomCard = cardDeck[randomCardIndex];
+    shuffledDeck.push(randomCard);
+    cardDeck.splice(randomCardIndex, 1);
+  }
+  return shuffledDeck;
+}
+
+function getRandomCardIndex(cardDeck) {
+  let randomCardIndex = Math.trunc(Math.random() * cardDeck.length);
+  return randomCardIndex;
+}
+
+function dealCard(cardDeck) {
+  return cardDeck.pop();
+}
+
 function getCardScore(cardValue) {
   switch (cardValue) {
     case "Ace":
@@ -148,57 +199,7 @@ function getCardScore(cardValue) {
   }
 }
 
-function createDeck() {
-  // deck = [{suit: "clubs", value: "Ace"}, {suit: "clubs", value: 10}...]
-  let deck = [];
-  suits = ["clubs", "diamonds", "hearts", "spades"];
-  cardValues = [
-    "Ace",
-    "King",
-    "Queen",
-    "Jack",
-    "ten",
-    "nine",
-    "eight",
-    "seven",
-    "six",
-    "five",
-    "four",
-    "three",
-    "two",
-  ];
-
-  for (i = 0; i < suits.length; i++) {
-    for (n = 0; n < cardValues.length; n++) {
-      deck.push({
-        suit: suits[i],
-        value: cardValues[n],
-      });
-    }
-  }
-  return deck;
-}
-
-function getRandomCardIndex(cardDeck) {
-  let randomCardIndex = Math.trunc(Math.random() * cardDeck.length);
-  return randomCardIndex;
-}
-
-function shuffleDeck(cardDeck) {
-  let shuffledDeck = [];
-  while (cardDeck.length) {
-    randomCardIndex = getRandomCardIndex(cardDeck);
-    randomCard = cardDeck[randomCardIndex];
-    shuffledDeck.push(randomCard);
-    cardDeck.splice(randomCardIndex, 1);
-  }
-  return shuffledDeck;
-}
-
-function dealCard(cardDeck) {
-  return cardDeck.pop();
-}
-
+// GAME DISPLAY FUNCTIONS
 function renderCard(card, location) {
   let cardPicture = document.createElement("div");
   cardPicture.setAttribute("class", `playing-card ${card.suit}`);
@@ -208,6 +209,12 @@ function renderCard(card, location) {
   let cardValue = document.createTextNode(card.value);
   cardValueSpan.appendChild(cardValue);
   cardPicture.appendChild(cardValueSpan);
+}
+
+function displayGameText(message) {
+  let gameText = document.getElementById("gameText");
+  gameText.style.display = "block";
+  gameText.innerHTML = message;
 }
 
 function dealerTurn() {
@@ -232,18 +239,6 @@ function dealerTurn() {
   }
 }
 
-function determineWinner() {
-  let message = "";
-  if (playerScore > dealerScore) {
-    message = "YOU WIN";
-  } else if (playerScore === dealerScore) {
-    message = "DRAWN GAME";
-  } else {
-    message = "DEALER WINS";
-  }
-  displayGameText(message);
-}
-
 hitMeButton.addEventListener("click", function () {
   newCard = dealCard(game.cardDeck);
   game.Player1.cards.push(newCard);
@@ -262,10 +257,4 @@ function disablePlayerActions() {
   stickButton.disabled = true;
   hitMeButton.style.display = "none";
   stickButton.style.display = "none";
-}
-
-function displayGameText(message) {
-  let gameText = document.getElementById("gameText");
-  gameText.style.display = "block";
-  gameText.innerHTML = message;
 }
