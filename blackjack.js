@@ -201,11 +201,6 @@ function shuffleDeck(cardDeck) {
   return shuffledDeck;
 }
 
-function cardDetails(card) {
-  cardText = card.value + " of " + card.suit;
-  return cardText;
-}
-
 function dealCard(cardDeck) {
   return cardDeck.pop();
 }
