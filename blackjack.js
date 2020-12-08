@@ -49,10 +49,45 @@ function setUpGame() {
   return game;
 }
 
+function initialDeal(game) {
+  for (i = 0; i < 2; i++) {
+    game.Player1.cards.push(dealCard(game.cardDeck));
+    game.Dealer.cards.push(dealCard(game.cardDeck));
+  }
+  return game;
+}
+
+function displayDeal() {
+  // Show both cards for player 1
+  // Only show the first card for the dealer
+  // TODO: show second card face down for dealer
+  let playerOneCards = game.Player1.cards;
+  let dealerCards = game.Dealer.cards;
+  renderCard(playerOneCards[0], playerArea);
+  renderCard(playerOneCards[1], playerArea);
+  renderCard(dealerCards[0], dealerArea);
+}
+
 function displayGameText(message) {
   let gameText = document.getElementById("gameText");
   gameText.style.display = "block";
   gameText.innerHTML = message;
+}
+
+function calculateScore(playerCards) {
+  total = 0;
+  let aceCount = 0;
+  let hasAce = false;
+  for (i = 0; i < playerCards.length; i++) {
+    total += getCardScore(playerCards[i].value);
+    if (playerCards[i].value === "Ace") {
+      hasAce = true;
+    }
+  }
+  if (hasAce && total + 10 <= 21) {
+    return total + 10;
+  }
+  return total;
 }
 
 function displayScore(score, player) {
@@ -62,6 +97,21 @@ function displayScore(score, player) {
     dealerScoreDisplay.innerHTML = score;
   } else {
     playerScoreDisplay.innerHTML = score;
+  }
+}
+
+function determinePlayerOptions(playerScore) {
+  if (playerScore == 21) {
+    dealerTurn();
+    return false;
+  } else if (playerScore < 21) {
+    hitMeButton.style.display = "inline";
+    stickButton.style.display = "inline";
+    return true;
+  } else {
+    displayGameText("BUST, DEALER WINS!");
+    disablePlayerActions();
+    return false;
   }
 }
 
@@ -169,56 +219,6 @@ function renderCard(card, location) {
   let cardValue = document.createTextNode(card.value);
   cardValueSpan.appendChild(cardValue);
   cardPicture.appendChild(cardValueSpan);
-}
-
-function initialDeal(game) {
-  for (i = 0; i < 2; i++) {
-    game.Player1.cards.push(dealCard(game.cardDeck));
-    game.Dealer.cards.push(dealCard(game.cardDeck));
-  }
-  return game;
-}
-
-function displayDeal() {
-  // Show both cards for player 1
-  // Only show the first card for the dealer
-  // TODO: show second card face down for dealer
-  let playerOneCards = game.Player1.cards;
-  let dealerCards = game.Dealer.cards;
-  renderCard(playerOneCards[0], playerArea);
-  renderCard(playerOneCards[1], playerArea);
-  renderCard(dealerCards[0], dealerArea);
-}
-
-function calculateScore(playerCards) {
-  total = 0;
-  let aceCount = 0;
-  let hasAce = false;
-  for (i = 0; i < playerCards.length; i++) {
-    total += getCardScore(playerCards[i].value);
-    if (playerCards[i].value === "Ace") {
-      hasAce = true;
-    }
-  }
-  if (hasAce && total + 10 <= 21) {
-    return total + 10;
-  }
-  return total;
-}
-
-function determinePlayerOptions(playerScore) {
-  if (playerScore == 21) {
-    dealerTurn();
-    return false;
-  } else if (playerScore < 21) {
-    hitMeButton.style.display = "inline";
-    stickButton.style.display = "inline";
-    return true;
-  } else {
-    displayGameText("BUST, DEALER WINS!");
-    disablePlayerActions();
-    return false;
-  }
 }
 
 function dealerTurn() {
