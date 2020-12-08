@@ -1,7 +1,5 @@
 // GAME DISPLAY ENTITIES
 let gameItems = document.getElementById("game");
-let playerScoreDisplay = document.getElementById("playerScore");
-let dealerScoreDisplay = document.getElementById("dealerScore");
 let playerArea = document.getElementById("playerCards");
 let dealerArea = document.getElementById("dealerCards");
 gameItems.style.display = "none";
@@ -10,8 +8,6 @@ gameItems.style.display = "none";
 let newGameButton = document.getElementById("newGameButton");
 let hitMeButton = document.getElementById("hitMeButton");
 let stickButton = document.getElementById("stickButton");
-hitMeButton.style.display = "none";
-stickButton.style.display = "none";
 
 newGameButton.addEventListener("click", startGame);
 
@@ -25,10 +21,10 @@ function startGame() {
   displayDeal(players);
   player1Cards = players.Player1;
   playerScore = calculateScore(player1Cards);
-  playerScoreDisplay.innerHTML = playerScore;
+  displayScore(playerScore, "Player1");
   dealerCards = players.Dealer;
   dealerScore = calculateScore([dealerCards[0]]);
-  dealerScoreDisplay.innerHTML = dealerScore;
+  displayScore(dealerScore, "Dealer");
   determinePlayerOptions(playerScore);
 }
 
@@ -36,6 +32,16 @@ function displayGameText(message) {
   let gameText = document.getElementById("gameText");
   gameText.style.display = "block";
   gameText.innerHTML = message;
+}
+
+function displayScore(score, player) {
+  let playerScoreDisplay = document.getElementById("playerScore");
+  let dealerScoreDisplay = document.getElementById("dealerScore");
+  if (player === "Dealer") {
+    dealerScoreDisplay.innerHTML = score;
+  } else {
+    playerScoreDisplay.innerHTML = score;
+  }
 }
 
 // Supporting functions
@@ -205,13 +211,13 @@ function dealerTurn() {
   renderCard(dealerCards[1], dealerArea);
   dealerCards = players.Dealer;
   dealerScore = calculateScore(dealerCards);
-  dealerScoreDisplay.innerHTML = dealerScore;
+  displayScore(dealerScore, "Dealer");
   while (dealerScore < 17) {
     newCard = dealCard(cards);
     dealerCards.push(newCard);
     renderCard(newCard, dealerArea);
     dealerScore = calculateScore(dealerCards);
-    dealerScoreDisplay.innerHTML = dealerScore;
+    displayScore(dealerScore, "Dealer");
   }
   if (dealerScore >= 17 && dealerScore < 22) {
     determineWinner();
@@ -250,7 +256,7 @@ hitMeButton.addEventListener("click", function () {
   player1Cards.push(newCard);
   renderCard(newCard, playerArea);
   playerScore = calculateScore(player1Cards);
-  playerScoreDisplay.innerHTML = playerScore;
+  displayScore(playerScore, "Player1");
   determinePlayerOptions(playerScore);
 });
 
