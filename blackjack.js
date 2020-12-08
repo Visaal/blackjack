@@ -215,24 +215,7 @@ function getCardScore(cardValue) {
   }
 }
 
-// GAME DISPLAY FUNCTIONS
-function renderCard(card, location) {
-  let cardPicture = document.createElement("div");
-  cardPicture.setAttribute("class", `playing-card ${card.suit}`);
-  location.appendChild(cardPicture);
-  let cardValueSpan = document.createElement("span");
-  cardValueSpan.setAttribute("class", "card-text");
-  let cardValue = document.createTextNode(card.value);
-  cardValueSpan.appendChild(cardValue);
-  cardPicture.appendChild(cardValueSpan);
-}
-
-function displayGameText(message) {
-  let gameText = document.getElementById("gameText");
-  gameText.style.display = "block";
-  gameText.innerHTML = message;
-}
-
+// DEALER ACTION
 function dealerTurn() {
   disablePlayerActions();
   renderCard(game.Dealer.cards[1], dealerArea);
@@ -253,6 +236,36 @@ function dealerTurn() {
     displayGameText("DEALER BUST, YOU WIN!");
     return;
   }
+}
+
+// GAME DISPLAY FUNCTIONS
+function renderCard(card, location) {
+  let cardPicture = document.createElement("div");
+  cardPicture.setAttribute("class", `playing-card ${card.suit}`);
+  location.appendChild(cardPicture);
+  let cardValueSpan = document.createElement("span");
+  cardValueSpan.setAttribute("class", "card-text");
+  let cardValue = document.createTextNode(card.value);
+  cardValueSpan.appendChild(cardValue);
+  cardPicture.appendChild(cardValueSpan);
+}
+
+function displayGameText(message) {
+  let gameText = document.getElementById("gameText");
+  gameText.style.display = "block";
+  gameText.innerHTML = message;
+}
+
+function determineWinner() {
+  let message = "";
+  if (playerScore > dealerScore) {
+    message = "YOU WIN";
+  } else if (playerScore === dealerScore) {
+    message = "DRAWN GAME";
+  } else {
+    message = "DEALER WINS";
+  }
+  displayGameText(message);
 }
 
 function disablePlayerActions() {
