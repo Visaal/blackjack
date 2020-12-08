@@ -6,7 +6,6 @@ let game = {};
 let gameItems = document.getElementById("game");
 let playerArea = document.getElementById("playerCards");
 let dealerArea = document.getElementById("dealerCards");
-gameItems.style.display = "none";
 
 // GAME ACTION BUTTONS
 let newGameButton = document.getElementById("newGameButton");
@@ -16,6 +15,14 @@ let stickButton = document.getElementById("stickButton");
 newGameButton.addEventListener("click", startGame);
 hitMeButton.addEventListener("click", hitMe);
 stickButton.addEventListener("click", stick);
+
+// Initiate Program
+document.addEventListener("DOMContentLoaded", main);
+
+function main() {
+  // Hide game board on page load
+  gameItems.style.display = "none";
+}
 
 function startGame() {
   clearGame();
