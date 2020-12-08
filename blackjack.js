@@ -1,3 +1,7 @@
+// GAME DATA STRUCTURE
+// Structure: { Player1: { cards: [], score: 0 }, Dealer: { cards: [], score: 0 }, cardDeck: [] }
+let game = {};
+
 // GAME DISPLAY ENTITIES
 let gameItems = document.getElementById("game");
 let playerArea = document.getElementById("playerCards");
@@ -13,19 +17,36 @@ newGameButton.addEventListener("click", startGame);
 
 function startGame() {
   clearGame();
-  gameItems.style.display = "";
-  cards = createDeck();
-  cards = shuffleDeck(cards);
-  players = setUpPlayers();
-  initialDeal(players, cards);
-  displayDeal(players);
-  player1Cards = players.Player1;
-  playerScore = calculateScore(player1Cards);
+  setUpGame();
+  initialDeal(game);
+  displayDeal(game);
+  let playerScore = calculateScore(game.Player1.cards);
   displayScore(playerScore, "Player1");
-  dealerCards = players.Dealer;
-  dealerScore = calculateScore([dealerCards[0]]);
+  let dealerScore = calculateScore([game.Dealer.cards[0]]);
   displayScore(dealerScore, "Dealer");
   determinePlayerOptions(playerScore);
+}
+
+function clearGame() {
+  game = {};
+  gameText.style.display = "none";
+  gameText.innerHTML = "";
+  hitMeButton.style.display = "none";
+  stickButton.style.display = "none";
+  hitMeButton.disabled = false;
+  stickButton.disabled = false;
+  playerArea.innerHTML = "";
+  dealerArea.innerHTML = "";
+  gameItems.style.display = "";
+}
+
+function setUpGame() {
+  game = {
+    Player1: { cards: [], score: 0 },
+    Dealer: { cards: [], score: 0 },
+    cardDeck: shuffleDeck(createDeck()),
+  };
+  return game;
 }
 
 function displayGameText(message) {
@@ -150,26 +171,20 @@ function renderCard(card, location) {
   cardPicture.appendChild(cardValueSpan);
 }
 
-function setUpPlayers() {
-  // structure { Player1: [cards stored here], Dealer: [cards stored here] }
-  const players = { Player1: [], Dealer: [] };
-  return players;
-}
-
-function initialDeal(players, cardDeck) {
+function initialDeal(game) {
   for (i = 0; i < 2; i++) {
-    players.Player1.push(dealCard(cardDeck));
-    players.Dealer.push(dealCard(cardDeck));
+    game.Player1.cards.push(dealCard(game.cardDeck));
+    game.Dealer.cards.push(dealCard(game.cardDeck));
   }
-  return players;
+  return game;
 }
 
-function displayDeal(players) {
+function displayDeal() {
   // Show both cards for player 1
   // Only show the first card for the dealer
   // TODO: show second card face down for dealer
-  let playerOneCards = players.Player1;
-  let dealerCards = players.Dealer;
+  let playerOneCards = game.Player1.cards;
+  let dealerCards = game.Dealer.cards;
   renderCard(playerOneCards[0], playerArea);
   renderCard(playerOneCards[1], playerArea);
   renderCard(dealerCards[0], dealerArea);
@@ -208,12 +223,12 @@ function determinePlayerOptions(playerScore) {
 
 function dealerTurn() {
   disablePlayerActions();
-  renderCard(dealerCards[1], dealerArea);
-  dealerCards = players.Dealer;
+  renderCard(game.Dealer.cards[1], dealerArea);
+  dealerCards = game.Dealer.cards;
   dealerScore = calculateScore(dealerCards);
   displayScore(dealerScore, "Dealer");
   while (dealerScore < 17) {
-    newCard = dealCard(cards);
+    newCard = dealCard(game.cardDeck);
     dealerCards.push(newCard);
     renderCard(newCard, dealerArea);
     dealerScore = calculateScore(dealerCards);
@@ -240,22 +255,11 @@ function determineWinner() {
   displayGameText(message);
 }
 
-function clearGame() {
-  gameText.style.display = "none";
-  gameText.innerHTML = "";
-  hitMeButton.style.display = "none";
-  stickButton.style.display = "none";
-  hitMeButton.disabled = false;
-  stickButton.disabled = false;
-  playerArea.innerHTML = "";
-  dealerArea.innerHTML = "";
-}
-
 hitMeButton.addEventListener("click", function () {
-  newCard = dealCard(cards);
-  player1Cards.push(newCard);
+  newCard = dealCard(game.cardDeck);
+  game.Player1.cards.push(newCard);
   renderCard(newCard, playerArea);
-  playerScore = calculateScore(player1Cards);
+  playerScore = calculateScore(game.Player1.cards);
   displayScore(playerScore, "Player1");
   determinePlayerOptions(playerScore);
 });
