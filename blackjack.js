@@ -1,5 +1,5 @@
 // GAME DATA STRUCTURE
-// Structure: { Player1: { cards: [], score: 0 }, Dealer: { cards: [], score: 0 }, cardDeck: [] }
+// Structure: { Player1: { cards: [], score: function calculateScore }, Dealer: { cards: [], score: function calculateScore }, cardDeck: [] }
 let game = {};
 
 // GAME DISPLAY ENTITIES
