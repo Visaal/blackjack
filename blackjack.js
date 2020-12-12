@@ -243,14 +243,39 @@ function dealerTurn() {
 
 // GAME DISPLAY FUNCTIONS
 function renderCard(card, location) {
+  // STRUCTURE
+  // <div class="playing-card new-card" id="new-card">
+  //   <div class="playing-card-inner face-down">
+  //     <div class="playing-card-front">
+  //        <h4 class="card-text">card value</h4>
+  //     </div>
+  //     <div class="playing-card-back"></div>
+  //   </div>
+  // </div>;
+
   let cardPicture = document.createElement("div");
-  cardPicture.setAttribute("class", `playing-card ${card.suit}`);
-  location.appendChild(cardPicture);
-  let cardValueSpan = document.createElement("span");
-  cardValueSpan.setAttribute("class", "card-text");
+  cardPicture.setAttribute("class", "playing-card new-card");
+
+  let cardInner = document.createElement("div");
+  cardInner.setAttribute("class", `playing-card-inner face-down`);
+
+  let cardFront = document.createElement("div");
+  cardFront.setAttribute("class", `playing-card-front ${card.suit}`);
+
+  let cardValueText = document.createElement("h4");
+  cardValueText.setAttribute("class", "card-text");
+
   let cardValue = document.createTextNode(card.value);
-  cardValueSpan.appendChild(cardValue);
-  cardPicture.appendChild(cardValueSpan);
+
+  let cardBack = document.createElement("div");
+  cardBack.setAttribute("class", "playing-card-back");
+
+  cardInner.appendChild(cardBack);
+  cardValueText.appendChild(cardValue);
+  cardFront.appendChild(cardValueText);
+  cardInner.appendChild(cardFront);
+  cardPicture.appendChild(cardInner);
+  location.appendChild(cardPicture);
 }
 
 function displayGameText(message) {
