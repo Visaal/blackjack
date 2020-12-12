@@ -81,10 +81,6 @@ h1 {
   transform-style: preserve-3d;
 }
 
-.playing-card:hover .playing-card-inner {
-  transform: rotateY(1deg);
-}
-
 .playing-card-front,
 .playing-card-back {
   box-sizing: border-box;
