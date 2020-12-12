@@ -31,9 +31,6 @@ body {
   min-height: 8vh;
 }
 
-.divider-container {
-}
-
 .divider {
   position: absolute;
   top: -60vh;
