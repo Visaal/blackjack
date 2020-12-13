@@ -78,13 +78,13 @@ function initialDeal(game) {
 
 function displayDeal() {
   // Show both cards for player 1
-  // Only show the first card for the dealer
-  // TODO: show second card face down for dealer
+  // Show card 1 face up and card 2 face down for the dealer
   let playerOneCards = game.Player1.cards;
   let dealerCards = game.Dealer.cards;
   renderCard(playerOneCards[0], playerArea);
   renderCard(playerOneCards[1], playerArea);
   renderCard(dealerCards[0], dealerArea);
+  renderCard(dealerCards[1], dealerArea, false);
 }
 
 function calculateScore(playerCards) {
@@ -224,7 +224,9 @@ function getCardScore(cardValue) {
 // DEALER ACTION
 function dealerTurn() {
   disablePlayerActions();
-  renderCard(game.Dealer.cards[1], dealerArea);
+  // Flip the dealer's second card
+  let dealerSecondCard = dealerArea.children[1];
+  dealerSecondCard.children[0].classList.remove("face-down");
   displayScore(game.Dealer.score(), "Dealer");
   while (game.Dealer.score() < 17) {
     let newCard = dealCard(game.cardDeck);
@@ -242,25 +244,113 @@ function dealerTurn() {
 }
 
 // GAME DISPLAY FUNCTIONS
-function renderCard(card, location) {
-  let cardPicture = document.createElement("div");
-  cardPicture.setAttribute("class", `playing-card ${card.suit}`);
-  location.appendChild(cardPicture);
-  let cardValueSpan = document.createElement("span");
-  cardValueSpan.setAttribute("class", "card-text");
+function renderCard(card, location, flipCard = true) {
+  // STEPS - PART 1
+  // 1. Add new card face down to the DOM and set opacity to 0
+
+  // CARD STRUCTURE
+  // <div class="playing-card new-card" id="new-card">
+  //   <div class="playing-card-inner face-down">
+  //     <div class="playing-card-front">
+  //        <h4 class="card-text">card value</h4>
+  //     </div>
+  //     <div class="playing-card-back"></div>
+  //   </div>
+  // </div>;
+
+  let cardElement = document.createElement("div");
+  cardElement.setAttribute("class", "playing-card new-card");
+
+  let cardInner = document.createElement("div");
+  cardInner.setAttribute("class", `playing-card-inner face-down`);
+
+  let cardFront = document.createElement("div");
+  cardFront.setAttribute("class", `playing-card-front ${card.suit}`);
+
+  let cardValueText = document.createElement("h4");
+  cardValueText.setAttribute("class", "card-text");
+
   let cardValue = document.createTextNode(card.value);
-  cardValueSpan.appendChild(cardValue);
-  cardPicture.appendChild(cardValueSpan);
+
+  let cardBack = document.createElement("div");
+  cardBack.setAttribute("class", "playing-card-back");
+
+  cardInner.appendChild(cardBack);
+  cardValueText.appendChild(cardValue);
+  cardFront.appendChild(cardValueText);
+  cardInner.appendChild(cardFront);
+  cardElement.appendChild(cardInner);
+  location.appendChild(cardElement);
+
+  animateCard(cardElement, flipCard);
+}
+
+function animateCard(cardDomElement, flipCard) {
+  // STEPS - PART 2
+  // 1. Create clone of deck card to enable animation to be applied to all cards
+  // 2. Move card from deck pack to new card position (animation only)
+  // 3. Remove new card class so opacity is 1 after animation finishes
+  // 4. Flip the card to be face up by removing the face-down class
+
+  let deckArea = document.getElementById("deckArea");
+  let deckCard = document.getElementById("deckCard");
+  let clonedDeckCard = deckCard.cloneNode(true);
+  deckArea.appendChild(clonedDeckCard);
+
+  // Set approximate buffer values based on positioning in the .deck-card css class
+  // This is to adjust for the difficulty in moving elements to exact positions
+  let upBuffer = 10;
+  let rightBuffer = 35;
+
+  let moveUp =
+    cardDomElement.getBoundingClientRect().top -
+    clonedDeckCard.getBoundingClientRect().top -
+    upBuffer;
+
+  let moveRight =
+    cardDomElement.getBoundingClientRect().right -
+    clonedDeckCard.getBoundingClientRect().right +
+    rightBuffer;
+
+  let animation = clonedDeckCard.animate(
+    [
+      {
+        transform: "translateX(0) translateY(0) rotate(45deg)",
+      },
+      {
+        transform: `translateX(${moveRight}px) translateY(${moveUp}px) rotate(360deg)`,
+      },
+    ],
+    {
+      // https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/fill
+      fill: "auto",
+      // https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/direction
+      direction: "alternate",
+      duration: 400,
+      easing: "ease-in-out",
+    }
+  );
+
+  animation.play();
+
+  animation.onfinish = () => {
+    if (flipCard) {
+      cardDomElement.children[0].classList.remove("face-down");
+    }
+    cardDomElement.classList.remove("new-card");
+    clonedDeckCard.remove();
+  };
 }
 
 function displayGameText(message) {
-  let gameText = document.getElementById("gameText");
-  gameText.style.display = "block";
-  gameText.innerHTML = message;
+  setTimeout(() => {
+    let gameText = document.getElementById("gameText");
+    gameText.style.display = "block";
+    gameText.innerHTML = message;
+  }, 900);
 }
 
 function determineWinner(playerScore, dealerScore) {
-  console.log("calling");
   let message = "";
   if (playerScore > dealerScore) {
     message = "YOU WIN";
