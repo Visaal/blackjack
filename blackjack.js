@@ -78,13 +78,13 @@ function initialDeal(game) {
 
 function displayDeal() {
   // Show both cards for player 1
-  // Only show the first card for the dealer
-  // TODO: show second card face down for dealer
+  // Show card 1 face up and card 2 face down for the dealer
   let playerOneCards = game.Player1.cards;
   let dealerCards = game.Dealer.cards;
   renderCard(playerOneCards[0], playerArea);
   renderCard(playerOneCards[1], playerArea);
   renderCard(dealerCards[0], dealerArea);
+  renderCard(dealerCards[1], dealerArea, false);
 }
 
 function calculateScore(playerCards) {
@@ -224,7 +224,9 @@ function getCardScore(cardValue) {
 // DEALER ACTION
 function dealerTurn() {
   disablePlayerActions();
-  renderCard(game.Dealer.cards[1], dealerArea);
+  // Flip the dealer's second card
+  let dealerSecondCard = dealerArea.children[1];
+  dealerSecondCard.children[0].classList.remove("face-down");
   displayScore(game.Dealer.score(), "Dealer");
   while (game.Dealer.score() < 17) {
     let newCard = dealCard(game.cardDeck);
@@ -242,7 +244,7 @@ function dealerTurn() {
 }
 
 // GAME DISPLAY FUNCTIONS
-function renderCard(card, location) {
+function renderCard(card, location, flipCard = true) {
   // STEPS - PART 1
   // 1. Add new card face down to the DOM and set opacity to 0
 
@@ -280,10 +282,10 @@ function renderCard(card, location) {
   cardElement.appendChild(cardInner);
   location.appendChild(cardElement);
 
-  animateCard(cardElement);
+  animateCard(cardElement, flipCard);
 }
 
-function animateCard(cardDomElement) {
+function animateCard(cardDomElement, flipCard) {
   // STEPS - PART 2
   // 1. Create clone of deck card to enable animation to be applied to all cards
   // 2. Move card from deck pack to new card position (animation only)
@@ -332,8 +334,10 @@ function animateCard(cardDomElement) {
   animation.play();
 
   animation.onfinish = () => {
+    if (flipCard) {
+      cardDomElement.children[0].classList.remove("face-down");
+    }
     cardDomElement.classList.remove("new-card");
-    cardDomElement.children[0].classList.remove("face-down");
     clonedDeckCard.remove();
   };
 }
