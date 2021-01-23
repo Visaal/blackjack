@@ -275,12 +275,12 @@ function renderCard(card, location, flipCard = true) {
   let cardBack = document.createElement("div");
   cardBack.setAttribute("class", "playing-card-back");
 
-  cardInner.appendChild(cardBack);
-  cardValueText.appendChild(cardValue);
-  cardFront.appendChild(cardValueText);
-  cardInner.appendChild(cardFront);
-  cardElement.appendChild(cardInner);
   location.appendChild(cardElement);
+  cardElement.appendChild(cardInner);
+  cardInner.appendChild(cardFront);
+  cardFront.appendChild(cardValueText);
+  cardValueText.appendChild(cardValue);
+  cardInner.appendChild(cardBack);
 
   animateCard(cardElement, flipCard);
 }
